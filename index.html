@@ -2,13 +2,15 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <title>Linkbrary</title>
+    <meta property="og:url" content="https://5-weekly-ohdonghyeok.netlify.app/">
+    <meta property="og:title" content="Linkbrary">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/1581/1581884.png">
+    <meta property="og:description" content="세상의 모든 정보를 쉽게 저장하고 관리해 보세요">
   </head>
   <body>
     <header>
@@ -19,125 +21,84 @@
       <section class="top">
         <div>
           <span class="topic gradient-Primary-Red2">세상의 모든 정보</span>
-          <span class="topic">를<br> 쉽게 저장하고 관리해 보세요</span><br>
+          <span class="topic">를<br> 쉽게 저장하고<br id="br-title1"> 관리해 보세요</span><br>
         </div>
         <a class="link-add" href="signup">링크 추가하기</a>
         <div class="white-box">
-          <img src="img/top.png">
-          <!-- 다른 사람 pull request 참고하는 과정에서 전부 확인한 것은 아니지만 대부분 img로 구현한 것 같아서 img/top.png 이미지로 대체 -->
-          <!-- <div class="white-box-content">
-            <div class="search-box">
-              <input class="search" placeholder="링크를 검색해보세요">
-              <img class="search-img" src="img/Search.png">
-            </div>
-            <div class="option-box">
-              <div class="options">
-                <span class="option-selected">전체</span>
-                <span class="option"><img src="img/star.png"> 즐겨찾기</span>
-                <span class="option">폴더명</span>
-              </div>
-              <a class="directory-add">폴더 추가 +</a>
-            </div>
-            <div class="card-box">
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-              <div class="card">
-                <img class="state" src="img/state=Default.png">
-                <img class="card-img" src="img/card.png">
-                <span class="card-time">10 minites ago</span>
-                <span class="card-detail">Lorem ipsum dolor sit amet consectetur. Metus amet habitant nunc consequat. Tldkd</span>
-                <span class="card-date">2023. 3. 15</span>
-              </div>
-            </div>
-          </div> -->
+          <img class="top-img" src="img/top.png">
         </div>
       </section>
-      <section class="middle">
-        <div class="middle-box">
-          <div class="middle-content-left">
-            <div>
-              <span class="topic2 gradient-Red3-Blue1">원하는 링크</span>
-              <span class="topic2">를<br> 저장하세요</span><br>
-              <span class="detail">나중에 읽고 싶은 글, 다시 보고 싶은 영상,<br>사고 싶은 옷, 기억하고 싶은 모든 것을<br> 한 공간에 저장하세요.</span>
+      <section id="middle">
+        <div id="middle-box">
+          <div id="grid-content1">
+            <div id="grid-title1">
+              <div>
+                <span class="topic2 gradient-Red3-Blue1">원하는 링크</span>
+                <span class="topic2">를<br id="br-title2"> 저장하세요</span><br>
+              </div>
+            </div>
+            <div id="grid-detail1">
+              <span class="detail">나중에 읽고 싶은 글, 다시 보고 싶은 영상,<br id="br1">사고 싶은 옷, <br id="mbr1">기억하고 싶은 모든 것을<br id="br2"> 한 공간에 저장하세요.</span>
+            </div>
+            <div id="grid-img1">
+              <img name="grid-img" class="detail-img" src="img/detail_1.png">
             </div>
           </div>
-          <img class="detail-img" src="img/detail_1.png">
-        </div>
-        <div class="middle-box">
-          <img class="detail-img" src="img/detail_2.png">
-          <div class="middle-content-right">
-            <div>i
-              <span class="topic2">링크를 폴더로<br></span>
-              <span class="topic2 gradient-Yellow-Blue2">관리</span>
-              <span class="topic2">하세요<br></span>
-              <span class="detail">나만의 폴더를 무제한으로 만들고<br>다양하게 활용할 수 있습니다.</span>
+          <div id="grid-content2">
+            <div id="grid-title2">
+              <div>
+                <span class="topic2">링크를 폴더로<br id="br-title3"></span>
+                <span class="topic2 gradient-Yellow-Blue2">관리</span>
+                <span class="topic2">하세요<br id="br-title4"></span>
+              </div>
+            </div>
+            <div id="grid-detail2">
+              <span id="grid-detail2" class="detail">나만의 폴더를 무제한으로 만들고<br id="br3">다양하게 활용할 수 <br id="mbr2">있습니다.</span>
+            </div>
+            <div id="grid-img2">
+              <img name="grid-img" class="detail-img" src="img/detail_2.png">
             </div>
           </div>
-        </div>
-        <div class="middle-box">
-          <div class="middle-content-left">
-            <div>
-              <span class="topic2">저장한 링크를</span><br>
-              <span class="topic2 gradient-Blue3-Blue4">공유</span>
-              <span class="topic2">해 보세요.</span><br>
-              <span class="detail">여러 링크를 폴더에 담고 공유할 수 있습니다.<br>가족, 친구, 동료들에게 쉽고 빠르게 링크를<br>공유해 보세요.</span>
+          <div id="grid-content3">
+            <div id="grid-title3">
+              <div>
+                <span class="topic2">저장한 링크를</span><br id="br-title5">
+                <span class="topic2 gradient-Blue3-Blue4">공유</span>
+                <span class="topic2">해 보세요</span>
+              </div>
+            </div>
+            <div id="grid-detail3">
+              <span id="grid-detail3" class="detail">여러 링크를 폴더에 담고 공유할 수<br id="br4"> 있습니다.가족, <br id="mbr3">친구, 동료들에게 쉽고<br id="br5"> 빠르게 링크를 공유해 보세요.</span>
+            </div>
+            <div id="grid-img3">
+              <img name="grid-img" class="detail-img" src="img/detail_3.png">
             </div>
           </div>
-          <img class="detail-img" src="img/detail_3.png">
-        </div>
-        <div class="middle-box">
-          <img class="detail-img" src="img/detail_4.png">
-          <div class="middle-content-right">
-            <div>
-              <span class="topic2">저장한 링크를<br></span>
-              <span class="topic2 gradient-Blue5-Blue6">검색</span>
-              <span class="topic2">해 보세요<br></span>
-              <span class="detail">중요한 정보들을 검색으로 쉽게 찾아보세요.</span>
+          <div id="grid-content4">
+            <div id="grid-title4">
+              <div>
+                <span class="topic2">저장한 링크를<br id="br-title6"></span>
+                <span class="topic2 gradient-Blue5-Blue6">검색</span>
+                <span class="topic2">해 보세요</span>
+              </div>
+            </div>
+            <div id="grid-detail4">
+              <span id="grid-detail4" class="detail">중요한 정보들을 검색으로 쉽게<br id="br6"> 찾아보세요.</span>
+            </div>
+            <div id="grid-img4">
+              <img name="grid-img" class="detail-img" src="img/detail_4.png">
             </div>
           </div>
         </div>
       </section>
     </main>
     <footer>
-      <span>©codeit - 2023</span>
-      <div class="footer-center">
+      <span id="f1">©codeit - 2023</span>
+      <div id="f2" class="footer-center">
         <a href="privacy">Privacy Policy</a>
         <a href="faq">FAQ</a>
       </div>
-      <div>
+      <div id="f3">
         <a href="https://www.facebook.com/" target="_blank"><img src="img/akar-icons_facebook-fill.png"></a>
         <a href="https://twitter.com/" target="_blank"><img src="img/akar-icons_twitter-fill.png"></a>
         <a href="https://www.youtube.com/" target="_blank"><img src="img/akar-icons_youtube-fill.png"></a>

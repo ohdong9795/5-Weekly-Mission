@@ -14,18 +14,24 @@
       <span>회원이 아니신가요?</span>
       <a href="signup" class="signup-text">회원 가입하기</a>
     </div>
-    <div class="label-div">
-      <label>이메일</label>
-    </div>
-    <input type="email">
-    <div class="label-div">
-      <label>비밀번호</label>
-    </div>
-    <div class="password-div">
-      <input id="password-input" type="password">
-      <img id="password-img" class="password-img" src="img/eye-on.png" onclick="type_change('password')">
-    </div>
-    <a class="signin" href="signin">로그인</a>
+    <form id="login">
+      <div class="label-div">
+        <label>이메일</label>
+      </div>
+      <div class="email-div">
+        <input id="email-input" name="email" type="email">
+        <span id="email-msg" hidden></span>
+      </div>
+      <div class="label-div">
+        <label>비밀번호</label>
+      </div>
+      <div class="password-div">
+        <input id="password-input" name="password" type="password">
+        <img id="password-img" class="password-img" src="img/eye-on.png">
+        <span id="password-msg" hidden></span>
+      </div>
+      <button id="signin">로그인</button>
+    </form>
     <div class="social-login">
       <span>소셜 로그인</span>
       <div class="images">
@@ -34,6 +40,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="module" src="js/signin.js"></script>
 </body>
 </html>

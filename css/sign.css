@@ -91,14 +91,14 @@ input {
   padding-left: 10px;
 }
 
-.password-repeat-input-diff {
-  border: 1px solid red;
-  outline-color: red;
-}
-
 .password-repeat-input {
   border:1px solid var(--Gray3);
   outline-color: var(--Primary);
+}
+
+.input-error {
+  border: 1px solid red !important;
+  outline-color: red !important;
 }
 
 .password-div {
@@ -122,8 +122,8 @@ input {
   bottom: 2px;
 }
 
-.signin,
-.signup {
+#signin,
+#signup {
   display: inline-block;
   width: 100%;
   height: 53px;
@@ -137,6 +137,8 @@ input {
   text-decoration: none;
   margin-top: 30px;
   margin-bottom: 32px;
+  border: 0;
+  cursor: pointer;
 }
 
 .social-login {
@@ -163,10 +165,22 @@ input {
   margin-right: 10px;
 }
 
-#diff-msg {
+#email-msg,
+#password-msg ,
+#password-repeat-msg {
   position: absolute;
   left: 0;
   bottom: 0;
   color: red;
   font-size: 14px;
+}
+
+.email-div {
+  position: relative;
+  width: 100%;
+}
+
+#login,
+#register {
+  width: 100%;
 }

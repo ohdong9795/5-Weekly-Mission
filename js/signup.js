@@ -1,78 +1,104 @@
-const email = document.querySelector('#email-input');
-const password = document.querySelector('#password-input');
-const repeat = document.querySelector('#password-repeat-input');
-const emailMsg = document.querySelector('#email-msg');
-const passwordMsg = document.querySelector('#password-msg');
-const repeatMsg = document.querySelector('#password-repeat-msg');
+const $email = document.querySelector('#email-input');
+const $password = document.querySelector('#password-input');
+const $repeat = document.querySelector('#password-repeat-input');
+const $emailMsg = document.querySelector('#email-msg');
+const $passwordMsg = document.querySelector('#password-msg');
+const $repeatMsg = document.querySelector('#password-repeat-msg');
 
-function email_check(e) {
-  let regex = new RegExp('^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
-  let test = regex.test(e.target.value);
+function checkEmail(e) {
+  const isDuplicate = $email.value === 'test@codeit.com' ? true : false;
+  const isEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(e.target.value);
+  const isEmpty = e.target.value.length === 0;
+  const isSignUp = location.pathname.includes('signup');
 
-  emailMsg.textContent = e.target.value.length == 0 ? '이메일을 입력해 주세요.' : '';
-  emailMsg.textContent = e.target.value.length != 0 && !test ? '올바른 이메일 주소가 아닙니다.' : emailMsg.textContent;
-  emailMsg.hidden = e.target.value.length == 0 ? false : true;
-  if (emailMsg.hidden) emailMsg.hidden = e.target.value.length != 0 && !test ? false : true;
+  if (isSignUp && isDuplicate) {
+    $emailMsg.textContent = '이미 사용중인 이메일입니다.';
+    $emailMsg.hidden = false;
+  } else {
+    $emailMsg.textContent = isEmpty ? '이메일을 입력해 주세요.' : (!isEmail ? '올바른 이메일 주소가 아닙니다.' : $emailMsg.textContent);
+    $emailMsg.hidden = isEmpty ? false : (!isEmail ? false : true);
+  }
 
-  toggle_input_error(emailMsg.hidden, email);
+  toggleInputBorder($emailMsg.hidden, $email);
+
+  return $emailMsg.hidden;
 }
 
-function type_change(e) {
-  let password_img = e.target;
-  let password_input = document.getElementById(e.target.id == 'password-img' ? 'password-input' : 'password-repeat-input');
+function changeType(e) {
+  const $passwordImg = e.target;
+  const $passwordInput = document.getElementById(e.target.id == 'password-img' ? 'password-input' : 'password-repeat-input');
 
-  let src = password_img.getAttribute('src');
-  if (src == 'img/eye-on.png') {
-    password_img.setAttribute('src', 'img/eye-off.png');
-    password_input.setAttribute('type', 'text');
+  let src = $passwordImg.getAttribute('src');
+  if (src === 'img/eye-on.png') {
+    $passwordImg.setAttribute('src', 'img/eye-off.png');
+    $passwordInput.setAttribute('type', 'text');
   } else {
-    password_img.setAttribute('src', 'img/eye-on.png');
-    password_input.setAttribute('type', 'password');
+    $passwordImg.setAttribute('src', 'img/eye-on.png');
+    $passwordInput.setAttribute('type', 'password');
   }
 }
 
-function diff_check() {
-  if (repeat.value == '') {
-    repeat.classList.remove('input-error');
-    repeatMsg.hidden = true;
-    repeatMsg.textContent = '';
+function checkPwdType(e) {
+  const errmsg = '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.';
+  
+  if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/.test(e.target.value)) {
+    $passwordMsg.textContent = errmsg;
+    $passwordMsg.hidden = false;
+  } else if ($passwordMsg.textContent === errmsg){
+    $passwordMsg.textContent = '';
+    $passwordMsg.hidden = true;
+  }
+
+  return $passwordMsg.hidden;
+}
+
+function checkPwdDiff() {
+  if ($repeat.value === '') {
+    $repeat.classList.remove('input-error');
+    $repeatMsg.hidden = true;
+    $repeatMsg.textContent = '';
   } else {
-    if (password.value == repeat.value) {
-      repeat.classList.remove('input-error');
-      repeatMsg.hidden = true;
-      repeatMsg.textContent = '';
+    if ($password.value === $repeat.value) {
+      $repeat.classList.remove('input-error');
+      $repeatMsg.hidden = true;
+      $repeatMsg.textContent = '';
     } else {
-      repeat.classList.add('input-error');
-      repeatMsg.textContent = '비밀번호가 다릅니다.';
-      repeatMsg.hidden = false;
+      $repeat.classList.add('input-error');
+      $repeatMsg.textContent = '비밀번호가 일치하지 않아요.';
+      $repeatMsg.hidden = false;
     }
   }
+
+  return $repeatMsg.hidden;
 }
 
-function password_empty(e) {
-  let msg = e.target.id.includes('repeat') ? repeatMsg || passwordMsg : passwordMsg;
-  
-  if (msg.textContent != '비밀번호가 다릅니다.') {
-    msg.textContent = '비밀번호를 입력해 주세요.';
-    msg.hidden = e.target.value.length == 0 ? false : true;
-
-    toggle_input_error(msg.hidden, e.target);
-  }
-}
-
-function toggle_input_error(hidden, input) {
+function toggleInputBorder(hidden, input) {
   if (!hidden) input.classList.add('input-error');
   else input.classList.remove('input-error');
 }
 
-if (location.pathname.includes('signup')) {
-  email.addEventListener('focusout', email_check);
-  password.addEventListener('focusout', password_empty);
-  password.addEventListener('input', diff_check);
-  document.querySelector('#password-img').addEventListener('click', type_change);
-  document.querySelector('#password-repeat-img').addEventListener('click', type_change);
-  repeat.addEventListener('focusout', password_empty);
-  repeat.addEventListener('input', diff_check);
+function register(e) {
+  if (e.target.type == 'submit') e.preventDefault();
+  if (e.type == 'keyup' && e.keyCode != '13') return; 
+  
+  const hasErrEmail = checkEmail({ target: $email });
+  const hasErrPwdType = checkPwdType({ target: $password });
+  const hasErrPwdDiff = checkPwdDiff();
+  
+  if (hasErrEmail && hasErrPwdType && hasErrPwdDiff) {
+    location.href = 'folder';
+  }
 }
 
-export { email_check, password_empty, type_change, toggle_input_error };
+if (location.pathname.includes('signup')) {
+  $email.addEventListener('focusout', checkEmail);
+  $password.addEventListener('input', checkPwdDiff);
+  $password.addEventListener('focusout', checkPwdType);
+  document.querySelector('#password-img').addEventListener('click', changeType);
+  document.querySelector('#password-repeat-img').addEventListener('click', changeType);
+  $repeat.addEventListener('input', checkPwdDiff);
+  document.querySelector('#register').addEventListener('keyup', register);
+  document.querySelector('#signup').addEventListener('click', register);
+}
+
+export { checkEmail, changeType, toggleInputBorder };

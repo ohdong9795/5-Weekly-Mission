@@ -1,4 +1,4 @@
-import { checkEmail, changeType, toggleInputBorder } from './signup.js';
+import { checkEmailType, changeType, toggleInputBorder } from './signup.js';
 
 const $email = document.querySelector('#email-input');
 const $password = document.querySelector('#password-input');
@@ -9,16 +9,35 @@ function login(e) {
   if (e.target.type == 'submit') e.preventDefault();
   if (e.type == 'keyup' && e.keyCode != '13') return; 
 
-  if ($email.value == 'test@codeit.com' && $password.value == 'codeit101') {
+  fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "email": $email.value,
+      "password": $password.value,
+    }),
+  })
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw new Error('로그인 오류');
+    }
+  })
+  .then((result) => {
+    localStorage.setItem('accessToken', result.data.accessToken);
     location.href = 'folder';
-  } else {
+  })
+  .catch(() => {
     $emailMsg.textContent = '이메일을 확인해주세요.';
     $passwordMsg.textContent = '비밀번호를 확인해 주세요.';
     $emailMsg.hidden = false;
     $passwordMsg.hidden = false;
     toggleInputBorder($emailMsg.hidden, $email);
     toggleInputBorder($passwordMsg.hidden, $password);
-  }
+  });
 }
 
 function checkPwdEmpty(e) {
@@ -30,7 +49,7 @@ function checkPwdEmpty(e) {
   toggleInputBorder($passwordMsg.hidden, e.target);
 }
 
-$email.addEventListener('focusout', checkEmail);
+$email.addEventListener('focusout', checkEmailType);
 $password.addEventListener('focusout', checkPwdEmpty);
 document.querySelector('#password-img').addEventListener('click', changeType);
 document.querySelector('#login').addEventListener('keyup', login);

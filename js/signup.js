@@ -5,30 +5,54 @@ const $emailMsg = document.querySelector('#email-msg');
 const $passwordMsg = document.querySelector('#password-msg');
 const $repeatMsg = document.querySelector('#password-repeat-msg');
 
+
 function checkEmail(e) {
-  const isDuplicate = $email.value === 'test@codeit.com' ? true : false;
+  checkEmailType(e);
+  if ($emailMsg.hidden) {
+    checkEmailDuplicate();
+  }
+}
+
+function checkEmailType(e) {
   const isEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(e.target.value);
   const isEmpty = e.target.value.length === 0;
-  const isSignUp = location.pathname.includes('signup');
 
-  if (isSignUp && isDuplicate) {
-    $emailMsg.textContent = '이미 사용중인 이메일입니다.';
-    $emailMsg.hidden = false;
-  } else {
-    $emailMsg.textContent = isEmpty ? '이메일을 입력해 주세요.' : (!isEmail ? '올바른 이메일 주소가 아닙니다.' : $emailMsg.textContent);
-    $emailMsg.hidden = isEmpty ? false : (!isEmail ? false : true);
-  }
+  $emailMsg.textContent = isEmpty ? '이메일을 입력해 주세요.' : (!isEmail ? '올바른 이메일 주소가 아닙니다.' : $emailMsg.textContent);
+  $emailMsg.hidden = isEmpty ? false : (!isEmail ? false : true);
 
   toggleInputBorder($emailMsg.hidden, $email);
 
   return $emailMsg.hidden;
 }
 
+function checkEmailDuplicate() {
+  return fetch('https://bootcamp-api.codeit.kr/api/check-email', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: $email.value,
+    }),
+  })
+  .then((response) => {
+    if (response.status === 409) {
+      $emailMsg.textContent = '이미 사용중인 이메일입니다.';
+      $emailMsg.hidden = false;
+    }
+    return response.status;
+  })
+  .finally((status) => {
+    toggleInputBorder($emailMsg.hidden, $email);
+    return status;
+  });
+}
+
 function changeType(e) {
   const $passwordImg = e.target;
   const $passwordInput = document.getElementById(e.target.id == 'password-img' ? 'password-input' : 'password-repeat-input');
 
-  let src = $passwordImg.getAttribute('src');
+  const src = $passwordImg.getAttribute('src');
   if (src === 'img/eye-on.png') {
     $passwordImg.setAttribute('src', 'img/eye-off.png');
     $passwordInput.setAttribute('type', 'text');
@@ -77,16 +101,44 @@ function toggleInputBorder(hidden, input) {
   else input.classList.remove('input-error');
 }
 
-function register(e) {
+async function register(e) {
   if (e.target.type == 'submit') e.preventDefault();
   if (e.type == 'keyup' && e.keyCode != '13') return; 
   
-  const hasErrEmail = checkEmail({ target: $email });
-  const hasErrPwdType = checkPwdType({ target: $password });
-  const hasErrPwdDiff = checkPwdDiff();
+  let hasErrEmail = !checkEmailType({ target: $email });
+  await checkEmailDuplicate()
+  .then((status) => {
+    if (status === 409) hasErrEmail = true;
+  });
+  const hasErrPwdType = !checkPwdType({ target: $password });
+  const hasErrPwdDiff = !checkPwdDiff();
   
-  if (hasErrEmail && hasErrPwdType && hasErrPwdDiff) {
-    location.href = 'folder';
+  if (!(hasErrEmail || hasErrPwdType || hasErrPwdDiff)) {
+    fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: $email.value,
+        password: $password.value,
+      }),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error('회원가입 오류');
+      }
+    })
+    .then((result) => {
+      console.log(result.data.accessToken);
+      localStorage.setItem('accessToken', result.data.accessToken);
+      location.href = 'folder';
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
 
@@ -101,4 +153,8 @@ if (location.pathname.includes('signup')) {
   document.querySelector('#signup').addEventListener('click', register);
 }
 
-export { checkEmail, changeType, toggleInputBorder };
+if (localStorage.accessToken !== undefined) {
+  location.href = 'folder';
+}
+
+export { checkEmailType, changeType, toggleInputBorder };

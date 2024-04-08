@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { calcDateDiff, dateToString } from "../../../common/date";
-import { Link } from "react-router-dom";
-import noImage from "../../../images/noImage.jpg";
-import { handleImageError } from "../../../common/error";
+import styled from 'styled-components';
+import { calcDateDiff, dateToString } from '../../common/date';
+import { Link } from 'react-router-dom';
+import noImage from '../../images/noImage.jpg';
+import { handleImageError } from '../../common/error';
 
 const ImgDiv = styled.div``;
 const StyledImg = styled.img``;
@@ -26,7 +26,7 @@ const StyledArticle = styled.article`
   }
 
   &:hover {
-    border: 2px solid #6D6AFE;
+    border: 2px solid #6d6afe;
     margin: -2px;
   }
 
@@ -59,7 +59,7 @@ const StyledArticle = styled.article`
   ${Detail} {
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;  
+    display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-size: 16px;
@@ -73,22 +73,31 @@ const StyledArticle = styled.article`
 `;
 
 const StyledLink = styled(Link)`
-	text-decoration: none;
+  text-decoration: none;
 `;
 
-function Item({createdAt, url, title, description, imageSource}) {
+function Item({ createdAt, url, title, description, imageSource }) {
   return (
-    <StyledLink to={url} target="_blank">
+    <StyledLink to={url} target='_blank'>
       <StyledArticle>
         <ImgDiv>
-          <StyledImg src={imageSource ? imageSource : noImage} alt={title} onError={handleImageError}/>
+          <StyledImg src={imageSource ? imageSource : noImage} alt={title} onError={handleImageError} />
         </ImgDiv>
         <Time>{calcDateDiff(new Date(), new Date(createdAt))}</Time>
-        <Detail>{description}</Detail>
+        <Detail>
+          {description ? (
+            description
+          ) : (
+            <>
+              <br />
+              <br />
+            </>
+          )}
+        </Detail>
         <CreatedDate>{dateToString(new Date(createdAt))}</CreatedDate>
       </StyledArticle>
     </StyledLink>
-  )
+  );
 }
 
 export default Item;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../../images/logo.png';
+import logo from '../../images/logo.png';
 import styled from 'styled-components';
 
 const LogoImg = styled.img`
@@ -53,12 +53,7 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 9999;
-  background-color: #F0F6FF;
+  background-color: #f0f6ff;
 
   @media screen and (min-width: 769px) {
     height: 93px;
@@ -69,12 +64,20 @@ const StyledNav = styled.nav`
   }
 `;
 
+const StickyNav = styled(StyledNav)`
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+`;
+
 const LoginButton = styled.button`
   display: inline-block;
   width: 128px;
   height: 53px;
   border-radius: 8px;
-  background: linear-gradient(90deg, rgb(109,106,254), rgb(106,227,254));
+  background: linear-gradient(90deg, rgb(109, 106, 254), rgb(106, 227, 254));
   color: white;
   text-align: center;
   line-height: 53px;
@@ -83,19 +86,38 @@ const LoginButton = styled.button`
   border: none;
 `;
 
-function Nav({userData}) {
+function Nav({ userData, isSample }) {
   const { data, loading, error } = userData;
+  const imgKey = isSample ? 'profileImageSource' : 'image_source';
 
-  return (
+  return isSample ? (
+    <StickyNav>
+      <InnerDiv>
+        <LogoImg src={logo} alt='LogoImage' />
+        <Link to='/'></Link>
+        {!loading && error === null ? (
+          <FlexDiv>
+            <ProfileImg src={data[imgKey]} alt='프로필' />
+            <VerticalCenterSpan>{data.email}</VerticalCenterSpan>
+          </FlexDiv>
+        ) : (
+          <LoginButton>로그인</LoginButton>
+        )}
+      </InnerDiv>
+    </StickyNav>
+  ) : (
     <StyledNav>
       <InnerDiv>
-        <LogoImg src={logo} alt="LogoImage" /><Link to="/"></Link>
-        {(!loading && error === null) ? 
-        <FlexDiv>
-          <ProfileImg src={data.profileImageSource} alt="프로필" />
-          <VerticalCenterSpan>{data.email}</VerticalCenterSpan>
-        </FlexDiv>
-        : <LoginButton>로그인</LoginButton>}
+        <LogoImg src={logo} alt='LogoImage' />
+        <Link to='/'></Link>
+        {!loading && error === null ? (
+          <FlexDiv>
+            <ProfileImg src={data[imgKey]} alt='프로필' />
+            <VerticalCenterSpan>{data.email}</VerticalCenterSpan>
+          </FlexDiv>
+        ) : (
+          <LoginButton>로그인</LoginButton>
+        )}
       </InnerDiv>
     </StyledNav>
   );

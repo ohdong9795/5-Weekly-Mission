@@ -1,5 +1,5 @@
 export function dateToString(date) {
-  return date.getFullYear()+'. '+(date.getMonth()+1)+'. '+date.getDate();
+  return date.getFullYear() + '. ' + (date.getMonth() + 1) + '. ' + date.getDate();
 }
 
 export function calcDateDiff(date1, date2) {

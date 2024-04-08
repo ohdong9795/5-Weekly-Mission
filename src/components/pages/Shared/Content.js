@@ -1,6 +1,6 @@
-import Items from "./Items";
-import Search from "./Search";
-import styled from "styled-components";
+import SampleItems from './SampleItems';
+import Search from '../../common/Search';
+import styled from 'styled-components';
 
 const StyledMain = styled.main`
   display: flex;
@@ -37,13 +37,13 @@ const GridDiv = styled.div`
   }
 `;
 
-function Content({linkData}) {
+function Content({ linkData }) {
   return (
     <StyledMain>
       <StyledDiv>
         <Search placeholder={'링크를 검색해 보세요.'}></Search>
         <GridDiv>
-          <Items linkData={linkData}/>
+          <SampleItems linkData={linkData} />
         </GridDiv>
       </StyledDiv>
     </StyledMain>

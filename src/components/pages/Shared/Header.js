@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.header`
   width: 100%;
-  background-color: #F0F6FF;
+  background-color: #f0f6ff;
   display: flex;
   justify-content: center;
 
@@ -53,19 +53,21 @@ const FolderNameSpan = styled.span`
   }
 `;
 
-function Header({userData, folderName}) {
+function Header({ userData, folderName }) {
   const { data, loading, error } = userData;
 
   return (
     <StyledHeader>
       <StyledDiv>
-        {(!loading && error === null) ?
-        <>
-          <ProfileImg src={data.profileImageSource} alt="프로필" />
-          <UserNameSpan>{data.name}</UserNameSpan>
-          <FolderNameSpan>{folderName}</FolderNameSpan>
-        </>
-        : <div></div>}
+        {!loading && error === null ? (
+          <>
+            <ProfileImg src={data.profileImageSource} alt='프로필' />
+            <UserNameSpan>{data.name}</UserNameSpan>
+            <FolderNameSpan>{folderName}</FolderNameSpan>
+          </>
+        ) : (
+          <div></div>
+        )}
       </StyledDiv>
     </StyledHeader>
   );

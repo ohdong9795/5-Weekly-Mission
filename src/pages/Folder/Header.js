@@ -26,11 +26,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-function Header() {
+function Header({ folderData }) {
   return (
     <StyledHeader>
       <StyledDiv>
-        <LinkAppender />
+        <LinkAppender folderData={folderData} />
       </StyledDiv>
     </StyledHeader>
   );

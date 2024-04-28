@@ -1,4 +1,4 @@
-import Item from '../../common/Item';
+import Item from '../../components/common/Item';
 
 function SampleItems({ linkData, url }) {
   const { data, loading, error } = linkData;

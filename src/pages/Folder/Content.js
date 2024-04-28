@@ -1,7 +1,7 @@
-import { API_INFO, putParams } from '../../../common/api';
-import useFetch from '../../../hooks/useFetch';
+import { API_INFO, putParams } from '../../common/api';
+import useFetch from '../../hooks/useFetch';
 import { styled } from 'styled-components';
-import Search from '../../common/Search';
+import Search from '../../components/common/Search';
 import Items from './Items';
 import FolderList from './FolderList';
 import { useState } from 'react';
@@ -41,13 +41,8 @@ const GridDiv = styled.div`
   }
 `;
 
-function Content() {
+function Content({ folderData }) {
   const [selectedId, setSelectedId] = useState(0);
-
-  const { url: getFolderUrl, method: getFolderMethod } = API_INFO.endpoints.getFolder;
-
-  const folderData = useFetch(API_INFO.baseUrl + putParams(getFolderUrl, '1'), getFolderMethod);
-  folderData.data = folderData.data?.data;
 
   const { url: getDataUrl, method: getDataMethod } = API_INFO.endpoints.getData;
   const queryString = selectedId === 0 ? '' : '?folderId=' + selectedId;
@@ -58,10 +53,10 @@ function Content() {
   return (
     <FlexMain>
       <ContentDiv>
-        <Search placeholder={'링크를 검색해 보세요.'}></Search>
+        <Search placeholder={'링크를 검색해 보세요.'} folderData={folderData}></Search>
         <FolderList folderData={folderData} selectedId={selectedId} setSelectedId={setSelectedId} />
         <GridDiv>
-          <Items linkData={linkData} />
+          <Items folderData={folderData} linkData={linkData} />
         </GridDiv>
       </ContentDiv>
     </FlexMain>

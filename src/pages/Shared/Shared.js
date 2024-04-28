@@ -1,9 +1,9 @@
-import Content from '../components/pages/Shared/Content';
-import Header from '../components/pages/Shared/Header';
-import Nav from '../components/common/Nav';
-import useFetch from '../hooks/useFetch';
-import Footer from '../components/common/Footer';
-import { API_INFO } from '../common/api';
+import Content from './Content';
+import Header from './Header';
+import Nav from '../../components/common/Nav';
+import useFetch from '../../hooks/useFetch';
+import Footer from '../../components/common/Footer';
+import { API_INFO } from '../../common/api';
 
 function Shared() {
   const baseUrl = API_INFO.baseUrl;
@@ -13,7 +13,7 @@ function Shared() {
   const { url: sampleDataUrl, method: sampleDataMethod } = API_INFO.endpoints.sampleData;
   const linkData = useFetch(baseUrl + sampleDataUrl, sampleDataMethod);
 
-  const folderName = (!linkData.loading && linkData.error === null) ? linkData.data.folder.name : "";
+  const folderName = !linkData.loading && linkData.error === null ? linkData.data.folder.name : '';
 
   return (
     <>

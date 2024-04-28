@@ -1,5 +1,5 @@
 import SampleItems from './SampleItems';
-import Search from '../../common/Search';
+import Search from '../../components/common/Search';
 import styled from 'styled-components';
 
 const StyledMain = styled.main`

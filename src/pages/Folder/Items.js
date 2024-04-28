@@ -1,4 +1,4 @@
-import Item from '../../common/Item';
+import Item from '../../components/common/Item';
 import { styled } from 'styled-components';
 
 const EmptyDiv = styled.div`
@@ -25,7 +25,7 @@ const EmptySpan = styled.span`
   }
 `;
 
-function Items({ linkData }) {
+function Items({ folderData, linkData }) {
   const { data, loading, error } = linkData;
 
   if (error) console.log(error);
@@ -47,6 +47,8 @@ function Items({ linkData }) {
               title={item.title}
               description={item.description}
               imageSource={item.image_source}
+              folderData={folderData}
+              editable={true}
             />
           ))
         ))}

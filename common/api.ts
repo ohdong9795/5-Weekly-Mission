@@ -22,6 +22,9 @@ export const API_INFO: ApiInfo = {
     getUser: { url: '/api/users/{param1}', method: 'GET' },
     getFolder: { url: '/api/users/{param1}/folders', method: 'GET' },
     getData: { url: '/api/users/{param1}/links', method: 'GET' },
+    checkEmail: { url: '/api/check-email', method: 'POST' },
+    signin: { url: '/api/sign-in', method: 'POST' },
+    signup: { url: '/api/sign-up', method: 'POST' },
   },
 };
 

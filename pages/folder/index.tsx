@@ -7,7 +7,6 @@ import Header from '@/components/folder/Header';
 import Head from 'next/head';
 
 function Folder() {
-  // 샘플 유저 데이터 막음 (탬플릿 코드 참고하였더니 로그인 풀려있음)
   // const { url: getUserUrl, method: getUserMethod } = API_INFO.endpoints.getUser;
   // const userData = useFetch<Data<UserData>>({
   //   url: API_INFO.baseUrl + putParams(getUserUrl, '1'),

@@ -41,7 +41,7 @@ const useFetch = <T>({
   const [loading, setLoading] = useState(true);
 
   const sendRequest = useCallback(
-    (sendRequestParams?: SendRequestParams) => {
+    async (sendRequestParams?: SendRequestParams) => {
       let fetchUrl = url;
       let fetchMethod = method;
       let fetchHeaders = headers;
@@ -54,36 +54,35 @@ const useFetch = <T>({
         fetchBody = sendRequestParams.body;
       }
 
-      (async () => {
-        setLoading(true);
+      setLoading(true);
+      setError(null);
 
-        fetchHeaders = fetchHeaders
-          ? fetchHeaders
-          : typeof fetchBody === 'object' && fetchBody !== null
-          ? { 'Content-Type': 'application/json' }
-          : {};
+      fetchHeaders = fetchHeaders
+        ? fetchHeaders
+        : typeof fetchBody === 'object' && fetchBody !== null
+        ? { 'Content-Type': 'application/json' }
+        : {};
 
-        const option = {
-          method: fetchMethod,
-          headers: fetchHeaders,
-          body: fetchBody ? JSON.stringify(fetchBody) : null,
-        };
+      const option = {
+        method: fetchMethod,
+        headers: fetchHeaders,
+        body: fetchBody ? JSON.stringify(fetchBody) : null,
+      };
 
-        try {
-          const response = await fetch(fetchUrl as RequestInfo | URL, option as RequestInit);
-          const result = await response.json();
+      try {
+        const response = await fetch(fetchUrl as RequestInfo | URL, option as RequestInit);
+        const result = await response.json();
 
-          setData(result);
-          if (response.ok) callback?.(result);
-        } catch (e) {
-          const error = e as Error;
-          setError(error);
-          errorCallback?.(e as Error);
-        } finally {
-          setLoading(false);
-          finalCallback?.();
-        }
-      })();
+        setData(result);
+        if (response.ok) callback?.(result);
+      } catch (e) {
+        const error = e as Error;
+        setError(error);
+        errorCallback?.(e as Error);
+      } finally {
+        setLoading(false);
+        finalCallback?.();
+      }
     },
     [url, method, headers, body, callback, errorCallback, finalCallback]
   );

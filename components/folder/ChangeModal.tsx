@@ -24,7 +24,7 @@ interface ChangeModalProps {
 export default function ChangeModal({ title, width, height, padding, setter }: ChangeModalProps) {
   return (
     <Modal title={title} width={width} height={height} padding={padding} setter={setter}>
-      <Input width='280px' height='60px' placeholder='내용 입력' margin='24px 0 15px 0' />
+      <Input width='280px' height='60px' placeholder='내용 입력' margin='24px 0 15px 0' padding='0 15px' />
       <ChangeButton>변경하기</ChangeButton>
     </Modal>
   );

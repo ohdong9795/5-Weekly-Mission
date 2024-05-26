@@ -1,4 +1,3 @@
-import SampleItems from './SampleItems';
 import Search from '@/components/common/Search';
 import styled from 'styled-components';
 import { FetchData, LinkData } from '@/common/api';
